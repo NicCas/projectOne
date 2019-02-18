@@ -1,17 +1,53 @@
 /*
- ============================================================================
- Name        : ProjectOne.c
- Author      : 
- Version     :
- Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
- ============================================================================
+	Write a program that can be used by a small theater to sell tickets for performances.
+	The theater’s auditorium has 15 rows of seats, with 30 seats in each row. The program should display a screen
+	that shows which seats are available and which are taken. For example, the following screen shows a chart depicting
+	each seat in the theater. Seats that are taken are represented by an * symbol, and seats that are available are represented by a # symbol:
+
+								   Seats
+						123456789012345678901234567890
+		Row 1			***###***###*########*****####
+		Row 2			####*************####*******##
+		Row 3			**###**********########****###
+		Row 4			**######**************##******
+		Row 5			********#####*********########
+		Row 6			##############************####
+		Row 7			#######************###########
+		Row 8			************##****############
+		Row 9			#########*****############****
+		Row 10			#####*************############
+		Row 11			#**********#################**
+		Row 12			#############********########*
+		Row 13			###***********########**######
+		Row 14			##############################
+		Row 15			##############################
+
+	Here is a list of tasks this program must perform:
+
+		• When the program begins, it should ask the user to enter the seat prices for each row.
+			The prices can be stored in a separate array. (Alternatively, the prices may be read from a file.)
+
+		• Once the prices are entered, the program should display a seating chart similar to the one shown above.
+			The user may enter the row and seat numbers for tickets being sold. Every time a ticket or group of tickets is purchased,
+			the program should display the total ticket prices and update the seating chart.
+
+		• The program should keep a total of all ticket sales. The user should be given an option of viewing this amount.
+
+		• The program should also give the user an option to see a list of how many seats have been sold, how many seats are
+			available in each row, and how many seats are available in the entire auditorium.
+
+	Input Validation: When tickets are being sold, do not accept row or seat numbers that do not exist. When someone requests a particular seat,
+	the program should make sure that seat is available before it is sold.
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 int main(void) {
-	puts("!!!Hello World!!!"); /* prints !!!Hello World!!! */
+
+	char seats [15] [30];
+
+	printf("set up");
+
 	return EXIT_SUCCESS;
 }
