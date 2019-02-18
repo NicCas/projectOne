@@ -40,12 +40,27 @@
 	the program should make sure that seat is available before it is sold.
  */
 
+
+
+/*
+ * To do:
+ *
+ * Build list view of all (global) seat information
+ * Organize all variables
+ * Organize variable names (especially for-loops)
+ * Fool proof everything
+ * Add comments
+ * Test
+ *
+ * Optional: Practice creating files and use one for prices or pre-made test conditions
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
 char seats [15] [30];
 float prices [15];
-float totalSalesCash;
+float totalTicketSales;
 int totalSeatsSold, totalSeatsLeft = 450;
 
 void printSeatingChart ()
@@ -154,6 +169,7 @@ int main(void)
 
 		if(menu == 1)
 		{
+			//Purchasing seats
 
 			//Booleans
 			int purchaseInProgress = 1;
@@ -174,8 +190,21 @@ int main(void)
 					printf("What row is your desired seat?\n");
 					scanf("%d", &row);
 
+					while (!(row > 0 && row < 16))
+					{
+						printf("Please select a row\n");
+						scanf("%d", &row);
+					}
+
 					printf("What is the desired seat number?\n");
 					scanf("%d", &seat);
+
+					while (!(seat > 0 && seat < 31))
+					{
+						printf("Please select a seat\n");
+						scanf("%d", &seat);
+					}
+
 
 					seatAvailable = checkSeatingChart (row, seat);
 				}
@@ -208,15 +237,21 @@ int main(void)
 				}
 			}
 
-			totalSalesCash = totalSalesCash + transactionTotal;
+			totalTicketSales = totalTicketSales + transactionTotal;
 
 			printf("\nYour total is:	$ %.2f	for %d seats\nThank you for shopping with Monetized Experiences TM\n\n\n", transactionTotal, transactionSeats);
 
 		} else if (menu == 2){
 
+			//Viewing tickets sold so far
+
 		} else if (menu == 3){
 
+			//Seat data list form
+
 		} else if (menu == 4){
+
+			//Close program
 
 			run = 0;
 		}
