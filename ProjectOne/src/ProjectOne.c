@@ -59,8 +59,7 @@
 #include <stdlib.h>
 
 char seats [15] [30];
-float prices [15];
-float totalTicketSales;
+float totalTicketSales, prices [15];
 int totalSeatsSold, totalSeatsLeft = 450;
 
 void printSeatingChart ()
