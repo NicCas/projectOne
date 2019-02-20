@@ -45,7 +45,7 @@
 /*
  * To do:
  *
- * Build list view of all (global) seat information
+ * Get File to work for preprogrammed prices
  * Organize all variables
  * Organize variable names (especially for-loops)
  * Fool proof everything
@@ -87,14 +87,14 @@ int checkSeatingChart (int row, int seat)
 
 	row--;
 	seat--;
-	if (seats [row][seat] == 'x')
+	if (seats [row][seat] == '~')
 	{
 
 		printf("This seat is already taken, please select another\n");
 		return 0;
 	} else {
 
-		seats [row][seat] = 'x';
+		seats [row][seat] = '~';
 		return 1;
 	}
 }
@@ -117,8 +117,72 @@ int main(void)
 {
 
 	float rowPrice;
-	int run = 1;
-	int menu;
+	int  w, menu, s = 0, run = 1;
+
+
+	printf("Would you like to use preprogrammed prices? If yes, type 1, If you would like to enter your own prices type 0:\n");
+	scanf("%d", &w);
+
+	while (s == 0){
+		if (w == 1){
+
+				/*
+					FILE *fp;
+
+					fp = fopen("projectOneTextFile.txt", "r");
+					int q = 0;
+
+					for (int i = 0; i < 15; i++){
+						fscanf(fp, "%d", q);
+						prices [i] = q;
+					}
+
+					printSeatingChart();
+
+					fclose(fp);
+					*/
+
+				prices [0] = 300.9;
+				prices [1] = 250.85;
+				prices [2] = 200;
+				prices [3] = 100.7;
+				prices [4] = 95.6;
+				prices [5] = 90.54;
+				prices [6] = 85;
+				prices [7] = 75.4;
+				prices [8] = 70;
+				prices [9] = 60;
+				prices [10] = 55.32;
+				prices [11] = 50;
+				prices [12] = 45.2;
+				prices [13] = 30.19;
+				prices [14] = 15;
+
+				s = 1;
+
+			} else if (w == 0){
+
+				//Set up row prices
+				printf("\nPlease enter the seat prices for each row when prompted, beginning in the front with Row 1 and ending with row 15\n\n");
+
+				for (int g = 0; g < 15; g++)
+				{
+
+					printf("Please enter the seat price for Row %d:\n", g + 1);
+					scanf("%f", &rowPrice);
+					prices [g] = rowPrice;
+
+					printf("\n");
+				}
+
+				s = 1;
+			} else {
+
+				printf("Please enter either 0 or 1:\n");
+				scanf("%d", &w);
+			}
+	}
+
 
 	//Set up an empty seating chart array
 	for (int e = 0; e < 15; e++)
@@ -127,19 +191,6 @@ int main(void)
 		{
 			seats [e][f] = 'O';
 		}
-	}
-
-	//Set up row prices
-	printf("\nPlease enter the seat prices for each row when prompted, beginning in the front with Row 1 and ending with row 15\n\n");
-
-	for (int g = 0; g < 15; g++)
-	{
-
-		printf("Please enter the seat price for Row %d:\n", g + 1);
-		scanf("%f", &rowPrice);
-		prices [g] = rowPrice;
-
-		printf("\n");
 	}
 
 	printf("\n");
@@ -155,7 +206,7 @@ int main(void)
 	while (run == 1)
 	{
 
-		printf("Select an action: \n1) Purchase a seat \n2) View tickets sold so far \n3) Get all seat data in list form \n4) Close the program [WARNING: This is a final action. All previous data will be lost]\n");
+		printf("Select an action: \n1) Purchase a seat \n2) View total ticket sales \n3) Seat Availability \n4) Close the program [WARNING: This is a final action. All previous data will be lost]\n");
 		scanf("%d", &menu);
 
 		//Safety net
@@ -217,7 +268,8 @@ int main(void)
 
 				printSeatingChart();
 
-				printf("\nYour total is:	$ %.2f\n\n", transactionTotal);
+				printf("\nYour ticket costs:	$ %.2f\n\n", prices[row - 1]);
+				printf("Your total is:		$ %.2f\n\n", transactionTotal);
 				printf("Select an action: \n1) Add another seat \n2) Go to checkout\n");
 				scanf("%d", &menu);
 
@@ -239,20 +291,40 @@ int main(void)
 
 			totalTicketSales = totalTicketSales + transactionTotal;
 
-			printf("\nYour total is:	$ %.2f	for %d seats\nThank you for shopping with Monetized Experiences TM\n\n\n", transactionTotal, transactionSeats);
+			printf("\nYour total is:	$ %.2f for %d seats\nThank you for shopping with Monetized Experiences TM\n\n\n", transactionTotal, transactionSeats);
 
 		} else if (menu == 2){
 
-			//Viewing tickets sold so far
+			//Total ticket sale
+			printf("\nTotal Tickets Sales: $ %f\n\n\n", totalTicketSales);
 
 		} else if (menu == 3){
 
-			//Seat data list form
+			//Seat Availability
+			printf("\nNumber of seats sold:	%d\n", totalSeatsSold);
+			printf("Number of seats left:	%d\n\n", totalSeatsLeft);
+
+			int count;
+
+			for (int g = 0; g < 15; g++)
+			{
+				count = 0;
+				for (int h = 0; h < 30; h++)
+				{
+					if (seats [g][h] == '~')
+					{
+						count++;
+					}
+				}
+
+				printf("Row %d	has  %d seats left\n", g, 15 - count);
+			}
+
+			printf("\n\n");
 
 		} else if (menu == 4){
 
 			//Close program
-
 			run = 0;
 		}
 	}
