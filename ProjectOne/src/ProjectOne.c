@@ -296,7 +296,7 @@ int main(void)
 		} else if (menu == 2){
 
 			//Total ticket sale
-			printf("\nTotal Tickets Sales: $ %f\n\n\n", totalTicketSales);
+			printf("\nTotal Tickets Sales: $ %.2f\n\n\n", totalTicketSales);
 
 		} else if (menu == 3){
 
@@ -317,7 +317,7 @@ int main(void)
 					}
 				}
 
-				printf("Row %d	has  %d seats left\n", g, 15 - count);
+				printf("Row %d	has  %d seats left at $ %.2f	per seat\n", g + 1, 30 - count, prices[g]);
 			}
 
 			printf("\n\n");
