@@ -49,7 +49,6 @@
  * Organize all variables
  * Organize variable names (especially for-loops)
  * Fool proof everything
- * Add comments
  * Test
  *
  * Optional: Practice creating files and use one for prices or pre-made test conditions
@@ -58,18 +57,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Global variables
 char seats [15] [30];
 float totalTicketSales, prices [15];
 int totalSeatsSold, totalSeatsLeft = 450;
 
 void printSeatingChart ()
 {
-
+	// Print header
 	printf("			    Seats\n\n");
 	printf("		123456789012345678901234567890\n");
+
+	// Cycle through row's of seats [][]
 	for (int a = 0; a < 15; a++)
 	{
 
+		// Cycle through columns of seats [][]
 		printf ("Row %d		", a + 1);
 		for (int b = 0; b < 30; b++)
 		{
@@ -84,16 +87,18 @@ void printSeatingChart ()
 int checkSeatingChart (int row, int seat)
 {
 
+	// Account for user typing in the row and seat number, not their indexes
 	row--;
 	seat--;
-	if (seats [row][seat] == '~')
+
+	if (seats [row][seat] == '*')
 	{
 
 		printf("This seat is already taken, please select another\n");
 		return 0;
 	} else {
 
-		seats [row][seat] = '~';
+		seats [row][seat] = '*';
 		return 1;
 	}
 }
@@ -104,6 +109,7 @@ void printRowPrices ()
 	for (int c = 0; c < 15; c++)
 	{
 
+		// c + 1 accounts for index being 1 less than the row number
 		printf("Row %d	costs	$ %.2f", c + 1, prices[c]);
 		printf("\n");
 	}
@@ -115,100 +121,100 @@ void printRowPrices ()
 int main(void)
 {
 
-	float rowPrice;
-	int  w, menu, s = 0, run = 1;
+	int  preprogrammed, menu, priceChoice = 0, run = 1;
 
-
-	printf("Would you like to use preprogrammed prices? If yes, type 1, If you would like to enter your own prices type 0:\n");
-	scanf("%d", &w);
-
-	while (s == 0){
-		if (w == 1){
-
-				/*
-					FILE *fp;
-
-					fp = fopen("projectOneTextFile.txt", "r");
-					int q = 0;
-
-					for (int i = 0; i < 15; i++){
-						fscanf(fp, "%d", q);
-						prices [i] = q;
-					}
-
-					printSeatingChart();
-
-					fclose(fp);
-					*/
-
-				prices [0] = 300.9;
-				prices [1] = 250.85;
-				prices [2] = 200;
-				prices [3] = 100.7;
-				prices [4] = 95.6;
-				prices [5] = 90.54;
-				prices [6] = 85;
-				prices [7] = 75.4;
-				prices [8] = 70;
-				prices [9] = 60;
-				prices [10] = 55.32;
-				prices [11] = 50;
-				prices [12] = 45.2;
-				prices [13] = 30.19;
-				prices [14] = 15;
-
-				s = 1;
-
-			} else if (w == 0){
-
-				//Set up row prices
-				printf("\nPlease enter the seat prices for each row when prompted, beginning in the front with Row 1 and ending with row 15\n\n");
-
-				for (int g = 0; g < 15; g++)
-				{
-
-					printf("Please enter the seat price for Row %d:\n", g + 1);
-					scanf("%f", &rowPrice);
-					prices [g] = rowPrice;
-
-					printf("\n");
-				}
-
-				s = 1;
-			} else {
-
-				printf("Please enter either 0 or 1:\n");
-				scanf("%d", &w);
-			}
-	}
-
-
-	//Set up an empty seating chart array
+	// Set up an empty seating chart array
 	for (int e = 0; e < 15; e++)
 	{
 		for (int f = 0; f < 30; f++)
 		{
-			seats [e][f] = 'O';
+			seats [e][f] = '#';
 		}
 	}
 
+	printf("Would you like to use preprogrammed prices? If yes, type 1, If you would like to enter your own prices type 0:\n");
+	scanf("%d", &preprogrammed);
+
+	// This while-loop accounts for the user entering something that is not 1 or 0
+	while (priceChoice == 0){
+
+		if (preprogrammed == 1){
+
+			// Preprogrammed prices, will soon access these from a file
+			/*
+				FILE *fp;
+
+				fp = fopen("projectOneTextFile.txt", "r");
+				int q = 0;
+
+				for (int i = 0; i < 15; i++){
+					fscanf(fp, "%d", q);
+					prices [i] = q;
+				}
+
+				printSeatingChart();
+
+				fclose(fp);
+			*/
+
+			prices [0] = 300.9;
+			prices [1] = 250.85;
+			prices [2] = 200;
+			prices [3] = 100.7;
+			prices [4] = 95.6;
+			prices [5] = 90.54;
+			prices [6] = 85;
+			prices [7] = 75.4;
+			prices [8] = 70;
+			prices [9] = 60;
+			prices [10] = 55.32;
+			prices [11] = 50;
+			prices [12] = 45.2;
+			prices [13] = 30.19;
+			prices [14] = 15;
+
+			priceChoice = 1;
+
+		} else if (preprogrammed == 0){
+
+			// Manual set up row prices
+			float rowPrice;
+
+			printf("\nPlease enter the seat prices for each row when prompted, beginning in the front with Row 1 and ending with row 15\n\n");
+
+			for (int g = 0; g < 15; g++)
+			{
+
+				printf("Please enter the seat price for Row %d:\n", g + 1);
+				scanf("%f", &rowPrice);
+				prices [g] = rowPrice;
+
+				printf("\n");
+			}
+
+			priceChoice = 1;
+		} else {
+
+			printf("Please enter either 0 or 1:\n");
+			scanf("%d", &preprogrammed);
+		}
+	}
+
+	// Summarize prices and current seating chart
 	printf("\n");
-
 	printRowPrices();
-
 	printf("\n\n");
-
 	printSeatingChart();
-
 	printf("\n\n");
 
+	// Allows the user to access main menu as many times as they like until they end the program
 	while (run == 1)
 	{
 
 		printf("Select an action: \n1) Purchase a seat \n2) View total ticket sales \n3) Seat Availability \n4) Close the program [WARNING: This is a final action. All previous data will be lost]\n");
 		scanf("%d", &menu);
 
-		//Safety net
+		// In case the user enters a number not 1 -4
 		while (!(menu > 0 && menu < 5))
 		{
 			printf("Please chose an option from the menu\n");
@@ -219,27 +225,29 @@ int main(void)
 
 		if(menu == 1)
 		{
-			//Purchasing seats
+			// Purchasing seats
 
-			//Booleans
+			// Declare Booleans
 			int purchaseInProgress = 1;
 			int seatAvailable = 0;
 
-			//Other Variables
+			// Declare Other Variables
 			int row, seat, transactionSeats = 0;
 			float transactionTotal = 0;
 
 			printf("Thank you for shopping with Monetized Experiences TM, please write the row and seat number you wish to purchase when indicated.\n\n");
 
+			// This while-loop allows the user to purchase multiple seats
 			while (purchaseInProgress == 1)
 			{
-
+				// This while-loop ensures only open seats are sold
 				while (seatAvailable == 0)
 				{
 
 					printf("What row is your desired seat?\n");
 					scanf("%d", &row);
 
+					// These while-loops make sure the user only enters rows 1-15 and seats 1-30
 					while (!(row > 0 && row < 16))
 					{
 						printf("Please select a row\n");
@@ -259,6 +267,7 @@ int main(void)
 					seatAvailable = checkSeatingChart (row, seat);
 				}
 
+				// Update sales statistics
 				transactionSeats++;
 				totalSeatsSold++;
 				totalSeatsLeft--;
@@ -267,11 +276,12 @@ int main(void)
 
 				printSeatingChart();
 
-				printf("\nYour ticket costs:	$ %.2f\n\n", prices[row - 1]);
+				printf("\nYour ticket cost:	$ %.2f\n\n", prices[row - 1]);
 				printf("Your total is:		$ %.2f\n\n", transactionTotal);
 				printf("Select an action: \n1) Add another seat \n2) Go to checkout\n");
 				scanf("%d", &menu);
 
+				// This while-loop ensures only 1 or 2 is selected
 				while (!(menu > 0 && menu < 3))
 				{
 					printf("Please chose an option from the menu:\n");
@@ -280,10 +290,11 @@ int main(void)
 
 				if (menu == 1)
 				{
-					purchaseInProgress = 1;
+					// Update boolean to continue transaction
 					seatAvailable = 0;
 				} else if (menu == 2) {
 
+					// Update boolean to end transaction
 					purchaseInProgress = 0;
 				}
 			}
@@ -294,23 +305,24 @@ int main(void)
 
 		} else if (menu == 2){
 
-			//Total ticket sale
+			// Total ticket sale
 			printf("\nTotal Tickets Sales: $ %.2f\n\n\n", totalTicketSales);
 
 		} else if (menu == 3){
 
-			//Seat Availability
+			// Seat Availability
 			printf("\nNumber of seats sold:	%d\n", totalSeatsSold);
 			printf("Number of seats left:	%d\n\n", totalSeatsLeft);
 
 			int count;
 
+			// Print seat availability per row, as well as row price
 			for (int g = 0; g < 15; g++)
 			{
 				count = 0;
 				for (int h = 0; h < 30; h++)
 				{
-					if (seats [g][h] == '~')
+					if (seats [g][h] == '*')
 					{
 						count++;
 					}
@@ -323,7 +335,8 @@ int main(void)
 
 		} else if (menu == 4){
 
-			//Close program
+			// Close program
+			printf("Monetized Experiences TM thanks you for your business");
 			run = 0;
 		}
 	}
