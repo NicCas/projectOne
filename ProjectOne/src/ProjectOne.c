@@ -40,20 +40,6 @@
 	the program should make sure that seat is available before it is sold.
  */
 
-
-
-/*
- * To do:
- *
- * Get File to work for preprogrammed prices
- * Organize all variables
- * Organize variable names (especially for-loops)
- * Fool proof everything
- * Test
- *
- * Optional: Practice creating files and use one for prices or pre-made test conditions
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -132,30 +118,13 @@ int main(void)
 		}
 	}
 
-	printf("Would you like to use preprogrammed prices? If yes, type 1, If you would like to enter your own prices type 0:\n");
+	printf("Would you like to use preprogrammed prices? If yes, type 1. If you would like to enter your own prices type 0:\n");
 	scanf("%d", &preprogrammed);
 
 	// This while-loop accounts for the user entering something that is not 1 or 0
 	while (priceChoice == 0){
 
 		if (preprogrammed == 1){
-
-			// Preprogrammed prices, will soon access these from a file
-			/*
-				FILE *fp;
-
-				fp = fopen("projectOneTextFile.txt", "r");
-				int q = 0;
-
-				for (int i = 0; i < 15; i++){
-					fscanf(fp, "%d", q);
-					prices [i] = q;
-				}
-
-				printSeatingChart();
-
-				fclose(fp);
-			*/
 
 			prices [0] = 300.9;
 			prices [1] = 250.85;
@@ -214,7 +183,7 @@ int main(void)
 		printf("Select an action: \n1) Purchase a seat \n2) View total ticket sales \n3) Seat Availability \n4) Close the program [WARNING: This is a final action. All previous data will be lost]\n");
 		scanf("%d", &menu);
 
-		// In case the user enters a number not 1 -4
+		// In case the user enters a number not 1-4
 		while (!(menu > 0 && menu < 5))
 		{
 			printf("Please chose an option from the menu\n");
